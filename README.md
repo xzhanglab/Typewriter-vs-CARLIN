@@ -57,6 +57,76 @@ Simulation code and data supporting this study are provided in this repository a
 
 ---
 
+## Data Generation Code (MATLAB) — Script Guide
+
+A separate folder (to be uploaded) contains the MATLAB scripts used to **simulate barcode evolution**, **generate datasets**, **reconstruct lineage trees**, and **compute accuracy metrics** (RF accuracy and triplet accuracy). Below is a brief guide explaining what each file does.
+
+### Main entry point
+- `MCnew.m`  
+  Main entrance script that runs the simulation/reconstruction pipeline and produces the outputs used for downstream analyses.  
+  **Note:** Lines calling `tripaccu` can be commented out to skip **triplet accuracy** calculation (useful for faster runs).
+
+### Accuracy metrics
+- `tripaccu.m`  
+  Computes **triplet accuracy** for a reconstructed lineage tree, using the **simulated (ground-truth) lineage tree** as the benchmark.
+
+- `findm.m`  
+  Finds the number of matched entries between two matrices, used in the calculation of **RF accuracy**.
+
+### Core simulation + reconstruction
+- `funbarNBJNF_TW.m`  
+  Core simulator/driver that:
+  1) simulates **CARLIN barcode** evolution and **DNA Typewriter (DNA Tape)** evolution,  
+  2) constructs lineage trees from simulated data (ground truth and/or reconstructed trees), and  
+  3) computes **Robinson–Foulds (RF) accuracies** for benchmarking.
+
+- `btree.m`  
+  Builds the original/benchmark (ground-truth) lineage tree produced by the simulation.
+
+- `valcheck.m`  
+  Validates a rebuilt lineage tree by checking structural consistency, including the **number of cells per generation**.
+
+### DNA Typewriter (DNA Tape) allele utilities
+- `twalleles.m`  
+  Generates a **child DNA Tape allele** from a **parent DNA Tape allele**, modeling the inheritance/editing process.
+
+- `twscore.m`  
+  Computes a **matching score** between two DNA Tape alleles (used for comparison/alignment/scoring during reconstruction).
+
+- `twparent.m`  
+  Rebuilds an inferred **parent DNA Tape** state from two children DNA Tape alleles (used in tree reconstruction steps).
+
+### CARLIN barcode utilities
+- `genchildcarlin.m`  
+  Generates a **child CARLIN barcode** from a **parent barcode**, modeling editing/inheritance during cell division.
+
+- `proend.m`  
+  Processes a cut end on a barcode due to **DSB (double-strand break)**, implementing the barcode editing outcome logic.
+
+- `CARLIN_raw`  
+  Contains the **CARLIN reference barcode** used by the simulator (reference/template barcode data for CARLIN).
+
+### Barcode alignment / vector comparison helpers
+These helper functions support barcode comparison/alignment routines used by the reconstruction logic.
+
+- `vcomp_cons.m`  
+  Compares similarity between two vectors by **rewarding consecutive matches** and applying **less penalty for consecutive mismatches**.  
+  Used for barcode alignment.
+
+- `vcomp5.m`  
+  Compares similarity between two vectors (including `0` entries).  
+  Used for barcode alignment.
+
+- `trim.m`  
+  Trims leading and trailing zeros from a vector.  
+  Used as a preprocessing step for barcode alignment.
+
+### Visualization
+- `redrawHeatmap.m`  
+  Plots a heatmap of **DNA Tape alleles** (used for visualizing allele distributions/patterns).
+
+---
+
 ## Citation
 Manuscript under preparation
 
