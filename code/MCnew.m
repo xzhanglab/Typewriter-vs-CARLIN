@@ -1,12 +1,12 @@
 % This is Monte Carlo to run funbarnew several times
 clear;
 clc;
-mcit = 5; % Monte Carlo simulation rounds
+mcit = 10; % Monte Carlo simulation rounds
 carlinbc = fileread('CARLIN_raw.txt'); % get CARLIN ref barcode
 
 
 it = 5; % cell division rounds
-ss = 0.25; % sample size proportion, a number between 0 and 1.
+ss = 1; % sample size proportion, a number between 0 and 1.
 
 propm = 0.8; % proportion of nonzero counts of a barcode to be considered as a matched pair
 mupb = 0.4; % probability of a cut at each target's hotspot, suggested 0.2---0.4
@@ -57,7 +57,35 @@ tarn = 10; % target number
 %trbk = it-1; % this is the number of generations to track back, trbk<it, trbk is at most it-1.
 trbk = it-1;
 
-% sumallele = zeros(3,tarn); % for detailed report of CARLIN alleles
+
+ %%for detailed report of CARLIN alleles such as remaining CARLIN
+ %%potential and target mutation statistics
+
+ % sumallele = zeros(3,tarn); 
+ % 
+ %        for i = 1:mcit
+ %            i
+ %                         [~,~,avelivetar(i,:),tarallele]=funbarNBJNF_det(n,it,propm,ss,mupb,ins_sub,lgdelprob,divp,clive, pulse, trbk, carlinref,tarn); % NBJNF method,detailed report
+ %             for k=0:2^it-1
+ %                sumallele = sumallele+tarallele(:,:,2^it+k);
+ %             end
+ %         end
+ %    figure
+ %    plot(0:it,[10 mean(avelivetar)*10],'black'); % plot average CARLIN potential (# of unedited targets for each generation)
+ %    ylim([0,10]);
+ %    title('CARLIN Potential');
+ %    ylabel('# of unedited targets');
+ %    xlabel('Division rounds');
+ %    sumallele
+ %    %reverse order for bar plot
+ %    barsum = sumallele;
+ %    barsum(1,:) = sumallele(3,:);
+ %    barsum(3,:) = sumallele(1,:);
+ %    figure
+ %    bar(barsum','stacked');
+ %    xlabel('Targets')
+ %    ylabel('# of cells');
+ %    disp('row 1 - unedited, row 2- intersite deletion with possible indel at both ends, row 3 - intrasite indel');
 
 %===================iterations================================
 for twtarn = 2:5:12
