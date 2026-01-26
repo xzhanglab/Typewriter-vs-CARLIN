@@ -106,6 +106,9 @@ A separate folder (to be uploaded) contains the MATLAB scripts used to **simulat
 - `CARLIN_raw`  
   Contains the **CARLIN reference barcode** used by the simulator (reference/template barcode data for CARLIN).
 
+- `funbarNBJNF_det` and `genchildcarlin_det`
+  These two files are used together to generate detailed report on CARLIN potential and alleles statistics..
+
 ### Barcode alignment / vector comparison helpers
 These helper functions support barcode comparison/alignment routines used by the reconstruction logic.
 
